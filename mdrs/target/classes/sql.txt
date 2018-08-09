@@ -1,0 +1,62 @@
+create table user(
+	`id` int PRIMARY KEY auto_increment comment '主键id',
+	`username` varchar(20) UNIQUE comment '登录名',
+	`password` varchar(50) not null comment '密码',
+	`default_url` int not null default 1 comment '默认登录界面，1为后端，2为前端',
+	`real_name` varchar(50) not null COMMENT '用户实际姓名',
+	`is_forbidden` int not null DEFAULT 0 COMMENT '是否禁用，默认0为可使用，1为禁用',
+	`type` int not null DEFAULT 0 COMMENT '用户类型，0为平台用户，1位HIS用户',
+	`phone` varchar(11) COMMENT '电话',
+	`description` varchar(128) COMMENT '用户描述',
+	`professional` varchar(128) COMMENT '用户专业',
+	`create_time` TIMESTAMP not null default CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` TIMESTAMP not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT '修改时间',
+	key `idx_name` (`username`) using BTREE,
+	key `idx_forbid` (`is_forbidden`) using BTREE
+);
+
+
+CREATE TABLE `role` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(30) DEFAULT NULL COMMENT '角色名称',
+  `description` varchar(50) DEFAULT NULL COMMENT '角色描述',
+  `code` varchar(20) DEFAULT NULL COMMENT '角色编号',
+  `insert_uid` int(11) DEFAULT NULL COMMENT '操作用户id',
+  `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '添加数据时间',
+  `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP  COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL COMMENT '菜单名称',
+  `pid` int(11) DEFAULT NULL COMMENT '父菜单id',
+  `zindex` int(2) DEFAULT NULL COMMENT '菜单排序',
+  `istype` int(1) DEFAULT NULL COMMENT '权限分类（0 菜单；1 功能）',
+  `descpt` varchar(50) DEFAULT NULL COMMENT '描述',
+  `code` varchar(20) DEFAULT NULL COMMENT '菜单编号',
+  `icon` varchar(30) DEFAULT NULL COMMENT '菜单图标名称',
+  `page` varchar(50) DEFAULT NULL COMMENT '菜单url',
+  `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '添加数据时间',
+  `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP  COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(5) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `userid` (`user_id`) USING BTREE,
+  KEY `roleid` (`role_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `role_permission` (
+  `permit_id` int(5) NOT NULL AUTO_INCREMENT,
+  `role_id` int(5) NOT NULL,
+  PRIMARY KEY (`permit_id`,`role_id`),
+  KEY `perimitid` (`permit_id`) USING BTREE,
+  KEY `roleid` (`role_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+

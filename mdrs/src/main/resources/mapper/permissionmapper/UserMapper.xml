@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winning.mdrs.perimissionmag.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.winning.mdrs.perimissionmag.model.User">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR"
+			property="username" />
+		<result column="default_url" jdbcType="INTEGER"
+			property="defaultUrl" />
+		<result column="real_name" jdbcType="VARCHAR"
+			property="realName" />
+		<result column="is_forbidden" jdbcType="INTEGER"
+			property="isForbidden" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="description" jdbcType="VARCHAR"
+			property="description" />
+		<result column="professional" jdbcType="VARCHAR"
+			property="professional" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, username, password, default_url, real_name, is_forbidden,
+		type,phone,description, professional,create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insertSelective"
+		parameterType="com.winning.mdrs.perimissionmag.model.User">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="record.id != null">
+				id,
+			</if>
+			<if test="record.username != null">
+				username,
+			</if>
+			<if test="record.password != null">
+				password,
+			</if>
+			<if test="record.defaultUrl != null">
+				default_url,
+			</if>
+			<if test="record.realName != null">
+				real_name,
+			</if>
+			<if test="record.isForbidden != null">
+				is_forbidden,
+			</if>
+			<if test="record.type != null">
+				type,
+			</if>
+			<if test="record.phone != null">
+				phone,
+			</if>
+			<if test="record.description != null">
+				description,
+			</if>
+			<if test="record.professional != null">
+				professional,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="record.id != null">
+				#{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.userName != null">
+				#{record.username,jdbcType=VARCHAR},
+			</if>
+			<if test="record.password != null">
+				#{record.password,jdbcType=VARCHAR},
+			</if>
+			<if test="record.defaultUrl != null">
+				#{record.defaultUrl,jdbcType=INTEGER},
+			</if>
+			<if test="record.realName != null">
+				#{record.realName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isForbidden != null">
+				#{record.isForbidden,jdbcType=INTEGER},
+			</if>
+			<if test="record.type != null">
+				#{record.type,jdbcType=INTEGER},
+			</if>
+			<if test="record.phone != null">
+				#{record.phone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.description != null">
+				#{record.description,jdbcType=VARCHAR},
+			</if>
+			<if test="record.professional != null">
+				#{record.professional,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKey"
+		parameterType="com.winning.mdrs.perimissionmag.model.User">
+		update user set
+		username=#{record.userName,jdbcType=VARCHAR},
+		password =#{record.password,jdbcType=VARCHAR},
+		default_url = #{record.defaultUrl,jdbcType=INTEGER},
+		real_name = #{record.realName,jdbcType=VARCHAR},
+		is_forbidden = #{record.isForbidden,jdbcType=INTEGER},
+		type = #{record.type,jdbcType=INTEGER},
+		phone = #{record.phone,jdbcType=VARCHAR},
+		description = #{record.description,jdbcType=VARCHAR},
+		professional = #{record.professional,jdbcType=VARCHAR}
+		where id = #{record.id,jdbcType=INTEGER}
+	</update>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.winning.mdrs.perimissionmag.model.User">
+		insert into user (id, username, password,
+		default_url, real_name,is_forbidden, type, phone,
+		description, professional)  
+		values (#{id,jdbcType=INTEGER},
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{defaultUrl,jdbcType=INTEGER},
+		#{realName,jdbcType=VARCHAR},
+		#{isForbidden,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER},
+		#{phone,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{professional,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.winning.mdrs.perimissionmag.model.User">
+		update user
+		<set>
+			<if test="record.username != null">
+				username = #{record.username,jdbcType=VARCHAR},
+			</if>
+			<if test="record.password != null and record.password !=''">
+				password = #{record.password,jdbcType=VARCHAR},
+			</if>
+			<if test="record.defaultUrl != null">
+				default_url = #{record.defaultUrl,jdbcType=INTEGER},
+			</if>
+			<if test="record.realName != null">
+				real_name = #{record.realName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isForbidden != null">
+				is_forbidden = #{record.isForbidden,jdbcType=INTEGER},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=INTEGER},
+			</if>
+			<if test="record.phone != null">
+				phone = #{record.phone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.description != null">
+				description = #{record.description,jdbcType=VARCHAR},
+			</if>
+			<if test="record.professional != null">
+				professional = #{record.professional,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{record.id,jdbcType=INTEGER}
+	</update>
+	<!--=Start getUsers 分页查询用户列表userSearch -->
+	<select id="getUsers" resultType="com.winning.mdrs.perimissionmag.po.UserRoleDTO">
+		select id,
+		username,password,phone,default_url defaultUrl,real_name realName, 
+		create_time insertTime,update_time updateTime,is_forbidden isForbidden,
+		type,description,professional perfessional
+		from user
+		WHERE 1=1 
+		<if test="userSearch.isForbidden!=null and userSearch.isForbidden!=''">
+			and is_forbidden=#{userSearch.isForbidden}  
+		</if>
+		<if test="userSearch.username!=null and userSearch.username!=''">
+			AND username like CONCAT(CONCAT(#{userSearch.username}), '%')
+		</if>
+		<if
+			test="userSearch.insertTimeStart!=null and userSearch.insertTimeStart!=''">
+			AND create_time &gt;= #{userSearch.insertTimeStart} 
+		</if>
+		<if
+			test="userSearch.insertTimeEnd!=null and userSearch.insertTimeEnd!=''">
+			AND create_time &lt;= #{userSearch.insertTimeEnd}
+		</if>
+	</select>
+	<!--=End getUsers 分页查询用户列表 -->
+
+	<!--=Start setJobUser 设置用户是否离职 -->
+	<update id="setJobUser">
+		update user
+		set
+		is_forbidden = #{isForbidden,jdbcType=INTEGER},
+		update_time=NOW()
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!--=Start setJobUser 设置用户是否离职 -->
+
+
+	<!--=Start getUserAndRoles 查询用户及他对应的角色ids -->
+	<resultMap id="getUserRoles"
+		type="com.winning.mdrs.perimissionmag.po.UserRolesVO">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" jdbcType="VARCHAR"
+			property="username" />
+		<result column="default_url" jdbcType="INTEGER" property="defaultUrl" />
+		<result column="real_name" jdbcType="VARCHAR" property="realName" />
+		<result column="is_forbidden" jdbcType="INTEGER"
+			property="isForbidden" />
+		<result column="type" jdbcType="INTEGER"
+			property="type" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="professional" jdbcType="VARCHAR" property="professional" />
+
+		<collection property="userRoles"
+			ofType="com.winning.mdrs.perimissionmag.model.UserRoleKey">
+			<result column="user_id" property="userId" />
+			<result column="role_id" property="roleId" />
+		</collection>
+
+	</resultMap>
+	<select id="getUserAndRoles" resultMap="getUserRoles">
+		select
+		u.id, u.username, u.default_url, u.real_name, u.is_forbidden isForbidden,u.create_time
+		createTime, u.update_time updateTime, u.type type,u.phone phone,
+		u.description description,u.professional professional,
+		ur.user_id,ur.role_id
+		from user u,user_role ur WHERE u.id=ur.user_id
+		AND u.is_forbidden=0 AND u.id=#{id}
+	</select>
+	<!--=End getUserAndRoles 查询用户及他对应的角色ids -->
+
+	<!--=Start findUser 根据用户名和密码查找用户 -->
+	<select id="findUser"
+		resultType="com.winning.mdrs.perimissionmag.model.User">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		WHERE username=#{username} AND password =#{password} and is_forbidden=0
+	</select>
+	<!--=End findUser 根据用户名和密码查找用户 -->
+	<!--=Start findUserByName 根据用户名获取用户数据 -->
+	<select id="findUserByName"
+		resultType="com.winning.mdrs.perimissionmag.model.User">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		WHERE username=#{username} and is_forbidden=0
+	</select>
+	<!--=End findUserByName 根据用户名查找用户 -->
+	<!--=Start updatePwd 修改用户密码 -->
+	<update id="updatePwd">
+		update user
+		set
+		password = #{password},
+		update_time=NOW()
+		where id = #{id,jdbcType=INTEGER} and is_forbidden=0
+	</update>
+	<!--=Start updatePwd 修改用户密码 -->
+	<!--=Start setUserLockNum 锁定用户 -->
+	<!-- <update id="setUserLockNum"> update user set is_lock = #{isLock}, lock_time=NOW() 
+		where id = #{id,jdbcType=INTEGER} and is_del=0 AND is_job=0 </update> -->
+	<!--=Start setUserLockNum 锁定用户 -->
+</mapper>
